@@ -29,45 +29,40 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int count = 0;
+  increment() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    count++;
+    setState(() {
 
-int count = 0;
+    });
+    pref.setInt("countValues", count);
 
-increment() async {
- SharedPreferences preferences =await SharedPreferences.getInstance();
-   count++;
-   setState(() {
-   });
+  }
+  decrement() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    count--;
+    setState(() {
 
-   ///countvalues modde save hoia thakbe.....amra jode kono kiso onno screen niye jai tokhon save hoia thakbe oi values golo
- ///count modde joto sonkha ache sei goloi jeeno ai khne store hoi......
-   preferences.setInt("countValues", count);
-}
+    });
+    pref.setInt("countValues", count);
 
-decrement() async {
- SharedPreferences preferences =await SharedPreferences.getInstance();
-   count--;
-   setState(() {
-     ///countvalues modde save hoia thakbe.....amra jode kono kiso onno screen niye jai tokhon save hoia thakbe oi values golo
-     ///count modde joto sonkha ache sei goloi jeeno ai khne store hoi......
-
-     preferences.setInt("countValues", count);
-   });
-
-}
-@override
+  }
+  @override
   void initState() {
-  action();
+
+    action();
     super.initState();
   }
-
 action() async {
-  SharedPreferences preferences =await SharedPreferences.getInstance();
-  int? countValues = preferences.getInt("countValues");
-  count = countValues!;
-  setState(() {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    int? countValues = pref.getInt("countValues");
+    count = countValues!;
+    setState(() {
 
-  });
+    });
 }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,8 +103,7 @@ action() async {
                   Expanded(
                     child: InkWell(
                       onTap: (){
-                        decrement();
-
+                     decrement();
                       },
                       child: Container(
                         height: double.infinity,
@@ -129,8 +123,7 @@ action() async {
                   Expanded(
                     child: InkWell(
                       onTap: (){
-
-                      increment()
+                        increment();
 ;                      },
                       child: Container(
                         height: double.infinity,
